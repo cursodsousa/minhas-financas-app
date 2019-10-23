@@ -2,7 +2,7 @@ import React from 'react'
 
 import NavbarItem from './navbarItem'
 
-function Navbar(){
+function Navbar({autenticado}){
     return (
         <div className="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
         <div className="container">
@@ -15,9 +15,9 @@ function Navbar(){
           </button>
           <div className="collapse navbar-collapse" id="navbarResponsive">
             <ul className="navbar-nav">
-                <NavbarItem href="#/home" label="Home" />
+                <NavbarItem render={autenticado} href="#/home" label="Home" />
                 <NavbarItem href="#/cadastro-usuarios" label="Usuários" />
-                <NavbarItem href="#/consulta-lancamentos" label="Lançamentos" />
+                <NavbarItem render={autenticado} href="#/consulta-lancamentos" label="Lançamentos" />
                 <NavbarItem href="#/login" label="Login" />
             </ul>
             </div>

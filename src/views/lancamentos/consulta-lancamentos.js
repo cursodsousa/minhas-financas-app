@@ -13,8 +13,6 @@ import * as messages from '../../components/toastr'
 import {Dialog} from 'primereact/dialog';
 import {Button} from 'primereact/button';
 
-
-
 class ConsultaLancamentos extends React.Component {
 
     state = {
@@ -52,7 +50,7 @@ class ConsultaLancamentos extends React.Component {
             .consultar(lancamentoFiltro)
             .then( resposta => {
                 const lista = resposta.data;
-                
+
                 if(lista.length < 1){
                     messages.mensagemAlert("Nenhum resultado encontrado.");
                 }
@@ -144,7 +142,7 @@ class ConsultaLancamentos extends React.Component {
                             <FormGroup htmlFor="inputDesc" label="Descrição: ">
                                 <input type="text" 
                                        className="form-control" 
-                                       id="inputDesc" 
+                                       id="inputDesc"
                                        value={this.state.descricao}
                                        onChange={e => this.setState({descricao: e.target.value})}
                                        placeholder="Digite a descrição" />
