@@ -7,19 +7,25 @@ import ConsultaLancamentos from '../views/lancamentos/consulta-lancamentos'
 import CadastroLancamentos from '../views/lancamentos/cadastro-lancamentos'
 
 import { Route, Switch, HashRouter } from 'react-router-dom'
+import RotaProtegida from './rotaProtegida'
+import { AuthConsumer } from './auth'
 
-function Rotas(){
+function Rotas({autenticado}){
     return (
         <HashRouter>
             <Switch>
-                <Route path="/home" component={Home} />
+                <RotaProtegida autenticado={autenticado} path="/home" component={Home} />
                 <Route path="/login" component={Login} />
                 <Route path="/cadastro-usuarios" component={CadastroUsuario} />
-                <Route path="/consulta-lancamentos" component={ConsultaLancamentos} />
-                <Route path="/cadastro-lancamentos/:id?" component={CadastroLancamentos} />
+                <RotaProtegida autenticado={autenticado}  path="/consulta-lancamentos" component={ConsultaLancamentos} />
+                <RotaProtegida autenticado={autenticado}  path="/cadastro-lancamentos/:id?" component={CadastroLancamentos} />
             </Switch>
         </HashRouter>
     )
 }
 
-export default Rotas
+export default () => (
+    <AuthConsumer>
+        {ctx => (<Rotas autenticado={ctx.autenticado} />)}
+    </AuthConsumer>
+)

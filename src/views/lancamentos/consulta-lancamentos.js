@@ -10,10 +10,8 @@ import LocalStorageService from '../../app/service/localstorageService'
 
 import * as messages from '../../components/toastr'
 
-import {Dialog} from 'primereact/dialog';
-import {Button} from 'primereact/button';
-
-
+import { Dialog } from 'primereact/dialog';
+import { Button } from 'primereact/button';
 
 class ConsultaLancamentos extends React.Component {
 

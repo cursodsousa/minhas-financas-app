@@ -13,16 +13,20 @@ import 'primereact/resources/themes/nova-light/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 
+import Auth from './auth';
+
+
+
 class App extends React.Component {
 
   render(){
     return(
-      <>
+      <Auth>
         <Navbar />
         <div className="container">    
             <Rotas />
         </div>
-      </>
+      </Auth>
     )
   }
 }
