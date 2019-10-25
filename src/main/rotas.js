@@ -14,9 +14,9 @@ function Rotas({autenticado}){
     return (
         <HashRouter>
             <Switch>
-                <RotaProtegida autenticado={autenticado} path="/home" component={Home} />
                 <Route path="/login" component={Login} />
                 <Route path="/cadastro-usuarios" component={CadastroUsuario} />
+                <RotaProtegida autenticado={autenticado} path="/home" component={Home} />
                 <RotaProtegida autenticado={autenticado}  path="/consulta-lancamentos" component={ConsultaLancamentos} />
                 <RotaProtegida autenticado={autenticado}  path="/cadastro-lancamentos/:id?" component={CadastroLancamentos} />
             </Switch>

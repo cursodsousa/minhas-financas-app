@@ -11,7 +11,6 @@ export default class Auth extends React.Component {
     }
     
     logar = (usuario) => {
-        console.log('logar: ', usuario)
         LocalStorageService.adicionarItem('_usuario_logado', usuario);
         this.setState({ autenticado: true })
     }
@@ -19,6 +18,13 @@ export default class Auth extends React.Component {
     encerrarSessao = () => {
         LocalStorageService.removerItem('_usuario_logado')
         this.setState({ autenticado: false })
+    }
+
+    componentDidMount(){
+       const usuario = LocalStorageService.obterItem('_usuario_logado')
+       if(usuario){
+           this.setState({autenticado : true})
+       }
     }
    
     render(){
