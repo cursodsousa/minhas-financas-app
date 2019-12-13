@@ -1,8 +1,6 @@
 import React from 'react'
 
 import AuthService from '../app/service/authService'
-import ApiService from '../app/apiservice';
-import { applyToken } from '../app/config/axios';
 
 export const AuthContext = React.createContext()
 export const AuthConsumer = AuthContext.Consumer;
@@ -17,9 +15,8 @@ class ProvedorAutenticacao extends React.Component{
     }
 
     iniciarSessao = (usuario) => {
-        AuthService.logar(usuario.usuario);
-        localStorage.setItem('token' ,usuario.token)
-        this.setState({ isAutenticado: true, usuarioAutenticado: usuario.usuario })
+        AuthService.logar(usuario);
+        this.setState({ isAutenticado: true, usuarioAutenticado: usuario })
     }
 
     encerrarSessao = () => {
