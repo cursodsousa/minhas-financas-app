@@ -1,18 +1,33 @@
 import React from 'react'
 import currencyFormatter from 'currency-formatter'
 
-export default props => {
+import { DataTable } from 'primereact/datatable'
+import { Column } from 'primereact/column'
 
-    const rows = props.lancamentos.map( lancamento => {
-        return (
-            <tr key={lancamento.id}>
-                <td>{lancamento.descricao}</td>
-                <td>{ currencyFormatter.format(lancamento.valor, { locale: 'pt-BR'}) }</td>
-                <td>{lancamento.tipo}</td>
-                <td>{lancamento.mes}</td>
-                <td>{lancamento.status}</td>
-                <td>
-                    <button className="btn btn-success" title="Efetivar"
+export default (props) => {
+     const lancamentos = props.lancamentos;
+     const totalRecords = (lancamentos && lancamentos.totalElements) || 0
+     const content = (lancamentos && lancamentos.content) || []
+
+     console.log('lancamentos', lancamentos)
+     console.log('total records', totalRecords)
+
+      return (
+        <DataTable value={content} 
+                   rows={10} 
+                   totalRecords={totalRecords}
+                   paginator={true} 
+                   lazy={true}
+                   onPage={page => props.buscar(page)}>
+            <Column field="descricao" header="Descrição" />
+            <Column header="Valor" body={(lancamento) => (<div>{ currencyFormatter.format(lancamento.valor, { locale: 'pt-BR'}) }</div>)} />
+            <Column field="tipo" header="Tipo" />
+            <Column field="mes" header="Mês" />
+            <Column field="status" header="Situação" />
+            <Column header="" body={ (lancamento) => {
+                return (
+                    <>
+                         <button className="btn btn-success" title="Efetivar"
                             disabled={ lancamento.status !== 'PENDENTE' }
                             onClick={e => props.alterarStatus(lancamento, 'EFETIVADO')} 
                             type="button">
@@ -24,37 +39,28 @@ export default props => {
                             type="button">
                             <i className="pi pi-times"></i>
                     </button>
-                    <button type="button"   title="Editar"
+                  
+                    </>
+                )
+            }} />
+            <Column header="" body={ (lancamento) => {
+                    return (
+                        <>
+                        <button type="button"   title="Editar"
                             className="btn btn-primary"
                             onClick={e => props.editAction(lancamento.id)}>
                             <i className="pi pi-pencil"></i>
-                    </button>
-                    <button type="button"  title="Excluir"
-                            className="btn btn-danger" 
-                            onClick={ e => props.deleteAction(lancamento)}>
-                            <i className="pi pi-trash"></i>
-                    </button>
-                </td>
-            </tr>
-        )
-    } )
+                        </button>
+                        <button type="button"  title="Excluir"
+                                className="btn btn-danger" 
+                                onClick={ e => props.deleteAction(lancamento)}>
+                                <i className="pi pi-trash"></i>
+                        </button>
+                </>
+                    )
+            }} />
 
-    return (
-        <table className="table table-hover">
-            <thead>
-                <tr>
-                    <th scope="col">Descrição</th>
-                    <th scope="col">Valor</th>
-                    <th scope="col">Tipo</th>
-                    <th scope="col">Mês</th>
-                    <th scope="col">Situação</th>
-                    <th scope="col">Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                {rows}
-            </tbody>
-        </table>
+           
+        </DataTable>
     )
 }
-

@@ -24,7 +24,7 @@ class ConsultaLancamentos extends React.Component {
         descricao: '',
         showConfirmDialog: false,
         lancamentoDeletar: {},
-        lancamentos : []
+        lancamentos : null
     }
 
     constructor(){
@@ -32,7 +32,7 @@ class ConsultaLancamentos extends React.Component {
         this.service = new LancamentoService();
     }
 
-    buscar = () => {
+    buscar = (page) => {
         if(!this.state.ano){
             messages.mensagemErro('O preenchimento do campo Ano é obrigatório.')
             return false;
@@ -49,7 +49,7 @@ class ConsultaLancamentos extends React.Component {
         }
 
         this.service
-            .consultar(lancamentoFiltro)
+            .consultar(lancamentoFiltro, page)
             .then( resposta => {
                 const lista = resposta.data;
                 
@@ -180,6 +180,7 @@ class ConsultaLancamentos extends React.Component {
                             <LancamentosTable lancamentos={this.state.lancamentos} 
                                               deleteAction={this.abrirConfirmacao}
                                               editAction={this.editar}
+                                              buscar={this.buscar}
                                               alterarStatus={this.alterarStatus} />
                         </div>
                     </div>  
