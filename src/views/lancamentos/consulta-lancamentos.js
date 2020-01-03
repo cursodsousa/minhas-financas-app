@@ -80,7 +80,7 @@ class ConsultaLancamentos extends React.Component {
             .then(response => {
                 const lancamentos = this.state.lancamentos;
                 const index = lancamentos.indexOf(this.state.lancamentoDeletar)
-                lancamentos.splice(index, 1);
+                lancamentos.content.splice(index, 1);
                 this.setState( { lancamentos: lancamentos, showConfirmDialog: false } )
                 messages.mensagemSucesso('Lançamento deletado com sucesso!')
             }).catch(error => {
@@ -96,7 +96,7 @@ class ConsultaLancamentos extends React.Component {
         this.service
             .alterarStatus(lancamento.id, status)
             .then( response => {
-                const lancamentos = this.state.lancamentos;
+                const lancamentos = this.state.lancamentos.content;
                 const index = lancamentos.indexOf(lancamento);
                 if(index !== -1){
                     lancamento['status'] = status;

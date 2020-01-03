@@ -79,13 +79,12 @@ export default class LancamentoService extends ApiService {
         return this.put(`/${lancamento.id}`, lancamento);
     }
 
-    consultar(lancamentoFiltro, page){
-        console.log('page', page)
-        
+    consultar( lancamentoFiltro, page ){
+       
         let params = `?ano=${lancamentoFiltro.ano}`
 
         if(page){
-            const number = page.number || 0
+            const number = page.page || 0
             const size = page.size || 10
 
             params = `${params}&page=${number}&size=${size}`

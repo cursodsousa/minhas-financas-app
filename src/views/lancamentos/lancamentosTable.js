@@ -9,9 +9,6 @@ export default (props) => {
      const totalRecords = (lancamentos && lancamentos.totalElements) || 0
      const content = (lancamentos && lancamentos.content) || []
 
-     console.log('lancamentos', lancamentos)
-     console.log('total records', totalRecords)
-
       return (
         <DataTable value={content} 
                    rows={10} 
@@ -24,39 +21,47 @@ export default (props) => {
             <Column field="tipo" header="Tipo" />
             <Column field="mes" header="Mês" />
             <Column field="status" header="Situação" />
-            <Column header="" body={ (lancamento) => {
+
+            <Column header="Efetivar" body={ (lancamento) => {
                 return (
-                    <>
-                         <button className="btn btn-success" title="Efetivar"
+                    <button className="btn btn-success" title="Efetivar"
                             disabled={ lancamento.status !== 'PENDENTE' }
                             onClick={e => props.alterarStatus(lancamento, 'EFETIVADO')} 
                             type="button">
                             <i className="pi pi-check"></i>
                     </button>
+                )
+            }} />
+
+            <Column header="Cancelar" body={ (lancamento) => {
+                return (
                     <button className="btn btn-warning"  title="Cancelar"
                             disabled={ lancamento.status !== 'PENDENTE' }
                             onClick={e => props.alterarStatus(lancamento, 'CANCELADO')} 
                             type="button">
                             <i className="pi pi-times"></i>
                     </button>
-                  
-                    </>
                 )
             }} />
-            <Column header="" body={ (lancamento) => {
-                    return (
-                        <>
-                        <button type="button"   title="Editar"
+            
+            <Column header="Editar" body={ (lancamento) => {
+                return (
+                    <button type="button"   title="Editar"
                             className="btn btn-primary"
                             onClick={e => props.editAction(lancamento.id)}>
                             <i className="pi pi-pencil"></i>
-                        </button>
+                    </button>
+                  
+                )
+            }} />
+            <Column header="Remover" body={ (lancamento) => {
+                    return (
+                       
                         <button type="button"  title="Excluir"
                                 className="btn btn-danger" 
                                 onClick={ e => props.deleteAction(lancamento)}>
                                 <i className="pi pi-trash"></i>
                         </button>
-                </>
                     )
             }} />
 
